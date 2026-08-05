@@ -644,21 +644,44 @@ El TA es la credencial temporal que ARCA te entrega una vez autenticado. Tiene u
 
 ### 6.1. Instalación
 
+El SDK se distribuye vía Composer como `rbbsoft/arca-sdk`. Dependiendo de si lo integrás a un proyecto existente o lo probás standalone, hay dos variantes.
+
+**En un proyecto existente** (caso más común):
+
 ```bash
-# 1. Clonar o copiar el SDK en el directorio de tu aplicación.
-#    (Ya está en C:\xampp\htdocs\ si seguiste el quickstart.)
+# 1. Agregar el SDK como dependencia.
+composer require rbbsoft/arca-sdk
 
-# 2. Instalar dependencias.
-composer install
+# 2. Copiar la plantilla del .env desde la instalación del SDK
+#    a la raíz de tu proyecto.
+cp vendor/rbbsoft/arca-sdk/.env.example .env
 
-# 3. Crear el archivo de configuración a partir de la plantilla.
+# 3. Editar el .env con tus datos (ver sección 6.2).
+
+# 4. Crear las tablas en la base de datos.
+php vendor/rbbsoft/arca-sdk/db/migrate.php
+```
+
+**Standalone** (para probar el SDK sin integrarlo a un proyecto):
+
+```bash
+# 1. Crear un directorio nuevo con el SDK y sus dependencias.
+composer create-project rbbsoft/arca-sdk test-install
+cd test-install
+
+# 2. Crear el .env a partir de la plantilla.
 cp .env.example .env
 
-# 4. Editar el .env con tus datos (ver sección 6.2).
+# 3. Editar el .env con tus datos (ver sección 6.2).
 
-# 5. Crear las tablas en la base de datos.
+# 4. Crear las tablas en la base de datos.
 php db/migrate.php
+
+# 5. (Opcional) Correr la suite de tests para validar la instalación.
+composer test    # 559 tests / 2 713 assertions; tarda ~30 segundos
 ```
+
+En la variante standalone, los archivos del SDK (`.env.example`, `db/migrate.php`, `examples/`, `tests/`) quedan directamente en la raíz del directorio creado, porque `composer create-project` copia el contenido del package. En la variante de proyecto, el SDK vive en `vendor/rbbsoft/arca-sdk/` y los paths tienen el prefijo correspondiente.
 
 ### 6.2. El archivo `.env` (mínimo viable)
 

@@ -5,6 +5,17 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/).
 
 ---
 
+## [v0.6.1] — 2026-08-05
+
+**Documentación de instalación vía Composer.** Se documenta el flujo de instalación del SDK como dependencia de un proyecto PHP, tras su publicación en Packagist.
+
+### Cambios
+
+- **`README.md`**: se agrega la sección `## Instalación` entre `## Quickstart` y `## Validación en entorno de homologación (ARCA)`, con los snippets de `composer require rbbsoft/arca-sdk` (integración a proyecto existente) y `composer create-project rbbsoft/arca-sdk test-install` (instalación standalone con smoke test).
+- **`docs/GUIA_DE_USO.md`**: se reescribe la sección `6.1. Instalación` con dos variantes (proyecto existente vs standalone) y una nota explicativa sobre los paths en `vendor/rbbsoft/arca-sdk/` (proyecto) vs raíz (standalone).
+
+---
+
 ## [v0.6.0] — 2026-08-05
 
 **Reestructuración del repositorio para publicación en Packagist.** El contenido del SDK abandona el subdirectorio `ARCASdk/` y pasa a la raíz del repositorio, conforme a la convención de Composer/Packagist, que requiere `composer.json` en la raíz del paquete.

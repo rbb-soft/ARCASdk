@@ -44,6 +44,26 @@ echo $respuesta->cae;
 
 Para la instalación detallada, las variables de entorno, los códigos de error, el diagnóstico, las operaciones administrativas y todo lo demás, ver la [guía de uso completa](docs/GUIA_DE_USO.md).
 
+## Instalación
+
+El SDK se distribuye vía Composer como `rbbsoft/arca-sdk`. Requisitos: PHP 8.1 o superior con las extensiones `ext-soap`, `ext-bcmath`, `ext-openssl` y `ext-pdo_mysql`.
+
+Para integrarlo a un proyecto existente:
+
+```bash
+composer require rbbsoft/arca-sdk
+```
+
+Para probarlo de forma aislada (crea un directorio nuevo con el SDK y todas sus dependencias; incluye el smoke test como `composer test`):
+
+```bash
+composer create-project rbbsoft/arca-sdk test-install
+cd test-install
+composer test    # corre los 559 tests / 2 713 assertions; tarda ~30 segundos
+```
+
+La configuración del `.env`, los certificados y la base de datos se documentan en la [guía de uso completa](docs/GUIA_DE_USO.md), sección 6.
+
 ## Validación en entorno de homologación (ARCA)
 
 El SDK se prueba de manera regular contra el entorno de **homologación de ARCA** (wsfev1 homo, `https://wswhomo.afip.gov.ar/...`). La homologación es un ambiente de prueba provisto por ARCA que replica los contratos y reglas de validación del ambiente productivo, pero no tiene validez fiscal y no se persiste más allá de un periodo breve.
