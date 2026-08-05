@@ -1,0 +1,45 @@
+{
+    "name": "rbbsoft/arca-sdk",
+    "description": "SDK PHP PSR-4 standalone para facturacion electronica contra ARCA (WSAA + WSFE).",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "ext-bcmath": "*",
+        "ext-gd": "*",
+        "ext-libxml": "*",
+        "ext-openssl": "*",
+        "ext-pdo_mysql": "*",
+        "ext-simplexml": "*",
+        "ext-soap": "*",
+        "mpdf/mpdf": "^8.3",
+        "mpdf/qrcode": "^1.2",
+        "psr/log": "^1.1 || ^2.0 || ^3.0"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "^3.10",
+        "phpunit/phpunit": "^10.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rbbsoft\\ArcaSdk\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rbbsoft\\ArcaSdk\\Tests\\Unit\\": "tests/unit/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit --log-junit build/test-results/junit.xml --testdox-html build/test-results/testdox.html",
+        "test:unit": "phpunit --testsuite unit --log-junit build/test-results/junit-unit.xml --testdox-html build/test-results/testdox-unit.html",
+        "migrate": "php db/migrate.php",
+        "audit-docs": "php tools/audit-docs.php"
+    }
+}
