@@ -6,7 +6,7 @@ SDK PHP PSR-4 standalone para facturación electrónica contra ARCA (ex AFIP). A
 - **Mantenimiento del proyecto (auditor docs ↔ código, etc.):** [docs/MAINTENANCE.md](docs/MAINTENANCE.md)
 - **Historial de versiones:** [CHANGELOG.md](CHANGELOG.md)
 - **Manuales oficiales de ARCA:** [docs/ARCA/](docs/ARCA/)
-- **Estado:** v0.5.1 — single-tenant, un CUIT por proceso PHP-FPM. Multi-tenant está explícitamente fuera de alcance.
+- **Estado:** v0.6.0 — single-tenant, un CUIT por proceso PHP-FPM. Multi-tenant está explícitamente fuera de alcance.
 
 ## Quickstart
 
@@ -79,12 +79,11 @@ composer install
 php examples/factura_a_basica.php 0 1 0
 ```
 
-**Alcance de la validación**: el SDK se considera validado únicamente en el entorno de homologación descripto. **No se ha emitido contra el ambiente productivo de ARCA**; la presente versión (v0.5.1) no se encuentra en producción. Antes de cualquier pase a producción se requiere una corrida de homologación con el CUIT y el punto de venta definitivos, junto con la verificación manual de los CAE resultantes.
+**Alcance de la validación**: el SDK se considera validado únicamente en el entorno de homologación descripto. **No se ha emitido contra el ambiente productivo de ARCA**; la presente versión (v0.6.0) no se encuentra en producción. Antes de cualquier pase a producción se requiere una corrida de homologación con el CUIT y el punto de venta definitivos, junto con la verificación manual de los CAE resultantes.
 
 ## Estructura
 
 ```
-ARCASdk/
 ├── .env / .env.example
 ├── README.md / CHANGELOG.md
 ├── composer.json / phpunit.xml

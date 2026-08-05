@@ -5,6 +5,34 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/).
 
 ---
 
+## [v0.6.0] — 2026-08-05
+
+**Reestructuración del repositorio para publicación en Packagist.** El contenido del SDK abandona el subdirectorio `ARCASdk/` y pasa a la raíz del repositorio, conforme a la convención de Composer/Packagist, que requiere `composer.json` en la raíz del paquete.
+
+### Cambios
+
+- **Layout del repositorio.** El contenido completo de `ARCASdk/*` se mueve a la raíz del repositorio: `composer.json`, `src/`, `tests/`, `docs/`, `examples/`, `tools/`, `db/`, `sql/`, `phpunit.xml`, `phpdoc.xml`, `LICENSE`, `LICENCIA.md`, `README.md`, `CHANGELOG.md`. Los archivos de `docs/ARCA/` (manuales PDF oficiales) y `examples/` se conservan con su contenido original.
+- **`.gitignore`.** Se adopta el `.gitignore` del SDK como canónico del repositorio. Se conserva la regla del directorio `Certificados/` del wrapper anterior. Se agregan reglas para `COMMIT_MSG.txt` y `COMMIT_MSG_PUBLIC.txt` (mensajes de commit temporales).
+- **`README.md` (raíz).** Se elimina el prefijo `ARCASdk/` del árbol de la sección `## Estructura`. El campo `Estado` se actualiza a `v0.6.0`.
+- **`docs/GUIA_DE_USO.md`.** Se actualizan los paths a `vendor/autoload.php` en los snippets de instalación (sección 0.3) y en el ejemplo de la tarea programada de reconciliación (sección 9.4). Se elimina la línea `cd ARCASdk` del quickstart de la sección 6.1.
+
+### Compatibilidad
+
+- Sin cambios en la API pública. Los namespaces PHP, los nombres de clases, los archivos del código fuente y los puntos de entrada del SDK no se modifican.
+- Las aplicaciones que instalan el SDK vía Composer no se ven afectadas: el paquete se publica como `rbbsoft/arca-sdk` y la API expuesta es la misma.
+
+### Notas de migración
+
+- Quien haya clonado el repositorio del SDK como submódulo o como subdirectorio de su aplicación debe ajustar el `require` correspondiente: el autoloader se resuelve en `vendor/autoload.php` (relativo a la raíz del paquete), no en `ARCASdk/vendor/autoload.php`.
+- Quien mantenga un `composer.json` propio con un `repositories` de tipo `path` apuntando a `ARCASdk/` debe actualizar la ruta a la raíz del repositorio.
+
+### Publicación en Packagist
+
+- El paquete queda disponible como `rbbsoft/arca-sdk` (requiere acción manual del mantenedor para el submit inicial y la configuración del webhook de auto-update desde GitHub).
+- Las versiones previas (`v0.5.0`, `v0.5.1`) publicadas en el repositorio de GitHub no se modifican; permanecen accesibles como tags históricos.
+
+---
+
 ## [v0.5.1] — 2026-08-05
 
 **Limpieza documental.** Se eliminan de la documentación pública las menciones a versiones anteriores del SDK. Se conservan únicamente las referencias a la versión actual (`v0.5.0`) y, cuando son relevantes para el lector de hoy, las referencias a normativa de ARCA (RG 5616) o a la forma histórica del DTO.

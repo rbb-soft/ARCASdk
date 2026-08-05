@@ -76,7 +76,7 @@ Creá un archivo `mi_primera_factura.php` con este contenido, reemplazando los v
 <?php
 declare(strict_types=1);
 
-require __DIR__ . '/ARCASdk/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use Rbbsoft\ArcaSdk\ArcaSdk;
 use Rbbsoft\ArcaSdk\Config\Config;
@@ -646,10 +646,9 @@ El TA es la credencial temporal que ARCA te entrega una vez autenticado. Tiene u
 
 ```bash
 # 1. Clonar o copiar el SDK en el directorio de tu aplicación.
-#    (Ya está en C:\xampp\htdocs\ARCASdk\ si seguiste el quickstart.)
+#    (Ya está en C:\xampp\htdocs\ si seguiste el quickstart.)
 
 # 2. Instalar dependencias.
-cd ARCASdk
 composer install
 
 # 3. Crear el archivo de configuración a partir de la plantilla.
@@ -886,7 +885,7 @@ La base de datos del SDK contiene la cache del TA y la tabla de idempotencia con
 `reconciliar()` debe ejecutarse periódicamente (cada 5 o 10 minutos) para limpiar emisiones abandonadas (filas que quedaron en `en_curso` porque el proceso murió). En Linux, un `cron`; en Windows con XAMPP, el Programador de Tareas invocando:
 
 ```bash
-php -r "require 'C:/xampp/htdocs/ARCASdk/vendor/autoload.php'; \
+php -r "require 'C:/xampp/htdocs/vendor/autoload.php'; \
   \$arca = Rbbsoft\ArcaSdk\ArcaSdk::getInstance(\$config); \
   echo \$arca->reconciliar() . ' filas reconciliadas' . PHP_EOL;"
 ```
