@@ -6,7 +6,7 @@ SDK PHP PSR-4 standalone para facturación electrónica contra ARCA (ex AFIP). A
 - **Mantenimiento del proyecto (auditor docs ↔ código, etc.):** [docs/MAINTENANCE.md](docs/MAINTENANCE.md)
 - **Historial de versiones:** [CHANGELOG.md](CHANGELOG.md)
 - **Manuales oficiales de ARCA:** [docs/ARCA/](docs/ARCA/)
-- **Estado:** v0.5.0 — single-tenant, un CUIT por proceso PHP-FPM. Multi-tenant está explícitamente fuera de alcance.
+- **Estado:** v0.5.1 — single-tenant, un CUIT por proceso PHP-FPM. Multi-tenant está explícitamente fuera de alcance.
 
 ## Quickstart
 
@@ -79,7 +79,7 @@ composer install
 php examples/factura_a_basica.php 0 1 0
 ```
 
-**Alcance de la validación**: el SDK se considera validado únicamente en el entorno de homologación descripto. **No se ha emitido contra el ambiente productivo de ARCA**; la presente versión (v0.5.0) no se encuentra en producción. Antes de cualquier pase a producción se requiere una corrida de homologación con el CUIT y el punto de venta definitivos, junto con la verificación manual de los CAE resultantes.
+**Alcance de la validación**: el SDK se considera validado únicamente en el entorno de homologación descripto. **No se ha emitido contra el ambiente productivo de ARCA**; la presente versión (v0.5.1) no se encuentra en producción. Antes de cualquier pase a producción se requiere una corrida de homologación con el CUIT y el punto de venta definitivos, junto con la verificación manual de los CAE resultantes.
 
 ## Estructura
 
@@ -93,7 +93,7 @@ ARCASdk/
 │   └── ARCA/                    ← manuales PDF oficiales de ARCA
 │       ├── INDICE.md
 │       ├── WSFEv1_Manual_Desarrollador_v4.5_ARCA.pdf
-│       ├── QRespecificaciones.pdf   ← spec del QR (nuevo v0.3.0)
+│       ├── QRespecificaciones.pdf   ← spec del QR
 │       ├── WSAA_*.pdf (8 manuales)
 │       └── ADMINREL_Delegar_Webservices.pdf
 ├── src/                          ← código del SDK
@@ -116,7 +116,7 @@ ARCASdk/
 │   │   ├── DomicilioFiscal.php  ← DTO sub-objeto
 │   │   ├── Actividad.php
 │   │   └── Impuesto.php
-│   ├── Pdf/                     ← generación de PDF con QR oficial ARCA (nuevo v0.3.0)
+│   ├── Pdf/                     ← generación de PDF con QR oficial ARCA
 │   │   └── ComprobantePdfGenerator.php
 │   ├── Sdk/Container.php        ← inyección de dependencias
 │   ├── Support/                 ← Money (BCMath) y RetryPolicy
@@ -134,7 +134,7 @@ ARCASdk/
 │   ├── Wsfe/                    ← facturación electrónica
 │   │   ├── WsfeClient.php
 │   │   ├── Comprobante.php
-│   │   ├── ComprobanteEmitido.php        ← DTO del response (nuevo v0.3.0)
+│   │   ├── ComprobanteEmitido.php        ← DTO del response
 │   │   ├── ComprobanteConsultado.php
 │   │   ├── ComprobanteResponse.php
 │   │   ├── DummyResponse.php
@@ -151,8 +151,8 @@ ARCASdk/
 │   └── unit/                    ← 559 tests / 2 713 assertions
 │       ├── ArcaSdk/             ← tests del Singleton y orquestador
 │       │   ├── CapturingLogger.php
-│       │   ├── ComprobantePdfGeneratorCapturing.php    ← (nuevo v0.3.0)
-│       │   ├── GenerarPdfTest.php                      ← (nuevo v0.3.0)
+│       │   ├── ComprobantePdfGeneratorCapturing.php
+│       │   ├── GenerarPdfTest.php
 │       │   ├── ObtenerEmisorTest.php
 │       │   ├── ReconciliacionTest.php
 │       │   └── ResetExternalIdTest.php
@@ -165,7 +165,7 @@ ARCASdk/
 │       ├── Support/             ← tests de Money y RetryPolicy
 │       ├── Wsaa/                ← tests de WSAA + CMS
 │       ├── Wsfe/                ← tests de WSFE
-│       │   ├── ComprobanteEmitidoTest.php              ← (nuevo v0.3.0)
+│       │   ├── ComprobanteEmitidoTest.php
 │       │   ├── ComprobanteResponseTest.php
 │       │   ├── ComprobanteTest.php
 │       │   ├── IvaCalculatorTest.php
@@ -178,7 +178,7 @@ ARCASdk/
 │   ├── factura_a_basica.php
 │   ├── factura_b_basica.php
 │   ├── factura_c_basica.php
-│   ├── factura_c_basica_pdf.php   ← emisión + PDF (nuevo v0.3.0)
+│   ├── factura_c_basica_pdf.php   ← emisión + PDF
 │   ├── factura_m_basica.php
 │   ├── nota_credito_a_basica.php
 │   ├── nota_credito_b_basica.php

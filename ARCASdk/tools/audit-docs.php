@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Verifica que README, GUIA_DE_USO y CHANGELOG esten alineados con el
  * codigo del SDK. Pensado para correr antes de commitear o en CI.
  *
- * Validaciones incluidas en v0.1 (5):
+ * Validaciones incluidas (5):
  *   1. Version declarada en README vs ultima entrada de CHANGELOG.
  *   2. Version del manual en GUIA_DE_USO (warn si quedo atras).
  *   3. Conteo de tests (lee junit.xml o corre phpunit) vs lo declarado
@@ -16,7 +16,7 @@ declare(strict_types=1);
  *   4. Arbol de "Estructura" del README vs archivos reales en src/.
  *   5. Tabla de tipos de comprobante en GUIA vs TiposComprobante.php.
  *
- * Pendientes para v0.2 (marcados como TODO en el codigo):
+ * Pendientes (marcados como TODO en el codigo):
  *   - Tabla de excepciones (GUIA seccion 10.1 vs src/Exceptions/*.php).
  *   - Tabla de alicuotas (GUIA seccion 2.4 vs codigo).
  *   - Tabla de tipos de documento del receptor (GUIA seccion 2.6).
@@ -33,7 +33,7 @@ declare(strict_types=1);
  *   2 = el script no pudo correr (ej: phpunit no disponible y junit.xml ausente)
  *
  * @package Rbbsoft\ArcaSdk\Tools
- * @since   0.4.1
+ * @since   0.5.0
  */
 
 namespace Rbbsoft\ArcaSdk\Tools;
@@ -591,7 +591,7 @@ function checkTipos(): bool
 
 function main(): int
 {
-    fwrite(STDOUT, "Rbbsoft\\ArcaSdk - auditor de coherencia docs<->codigo (v0.1)\n");
+    fwrite(STDOUT, "Rbbsoft\\ArcaSdk - auditor de coherencia docs<->codigo\n");
 
     $results = [];
 

@@ -7,7 +7,7 @@ SDK PHP PSR-4 standalone para facturación electrónica contra ARCA (ex AFIP). A
 - **Proyecto:** [`ARCASdk/`](./ARCASdk/)
 - **Manuales oficiales de ARCA:** [`ARCASdk/docs/ARCA/`](./ARCASdk/docs/ARCA/)
 - **Historial de versiones:** [`ARCASdk/CHANGELOG.md`](./ARCASdk/CHANGELOG.md)
-- **Estado:** v0.4.1 (single-tenant, un CUIT por proceso PHP-FPM).
+- **Estado:** v0.5.1 (single-tenant, un CUIT por proceso PHP-FPM).
 
 ## Costo de utilización
 

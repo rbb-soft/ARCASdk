@@ -26,17 +26,17 @@ composer audit-docs
 | `1` | Hay al menos una inconsistencia. Ver la salida para el detalle. |
 | `2` | El script no pudo correr (ej: `phpunit` no disponible y `junit.xml` ausente). |
 
-### Validaciones incluidas (v0.1)
+### Validaciones incluidas
 
-1. **Versión declarada en `README.md`** (línea 8 y footer línea 81) vs la última entrada de `CHANGELOG.md`.
+1. **Versión declarada en `README.md`** (línea 9 y footer línea 82) vs la última entrada de `CHANGELOG.md`.
 2. **Versión del manual en `docs/GUIA_DE_USO.md`** (línea 9 del frontmatter) — flag como `WARN` si quedó atrás de la versión del SDK.
 3. **Conteo de tests** en `README.md` y en la última entrada de `CHANGELOG.md` vs la suite real. Lee `build/test-results/junit-unit.xml` (preferido), `build/test-results/junit.xml` (alternativa) o corre `vendor/bin/phpunit --testsuite unit` como último recurso.
 4. **Árbol de "Estructura"** del `README.md` (sección "Estructura", bloque entre triple backticks) vs los archivos `.php` reales en `src/`. Detecta archivos reales que no están listados y listados que no existen.
 5. **Tabla de tipos de comprobante** en `docs/GUIA_DE_USO.md` (§1.3 y apéndice A) vs las constantes en `src/Wsfe/TiposComprobante.php`.
 
-### Validaciones pendientes (v0.2)
+### Validaciones pendientes
 
-Marcadas como `TODO v0.2` en el código. Cubrirán:
+Marcadas como `TODO` en el código. Cubrirán:
 
 - Tabla de excepciones (GUIA §10.1 vs `src/Exceptions/*.php`).
 - Tabla de alícuotas (GUIA §2.4 vs alícuotas aceptadas en `src/Wsfe/Comprobante.php` e `src/Wsfe/IvaCalculator.php`).
@@ -54,24 +54,24 @@ Marcadas como `TODO v0.2` en el código. Cubrirán:
 ### Ejemplo de salida
 
 ```
-Rbbsoft\ArcaSdk - auditor de coherencia docs<->codigo (v0.1)
+Rbbsoft\ArcaSdk - auditor de coherencia docs<->codigo
 
 == Validacion 1: version declarada en README vs CHANGELOG ==
-[ OK  ] readme.estado                    v0.4.0
-[ OK  ] readme.footer                    v0.4.0
+[ OK  ] readme.estado                    v0.5.0
+[ OK  ] readme.footer                    v0.5.0
 
 == Validacion 2: version del manual en GUIA_DE_USO ==
-[ OK  ] guia.version_manual              2.1
-[ OK  ] guia.version_vs_sdk              manual 2.1, SDK v0.4.0
+[ OK  ] guia.version_manual              3.0
+[ OK  ] guia.version_vs_sdk              manual 3.0, SDK v0.5.0
 
 == Validacion 3: conteo de tests ==
 [INFO ] tests.count                      559 tests / 2713 assertions
 [ OK  ] tests.readme                     559 / 2713
-[ OK  ] tests.changelog                  v0.4.0: 559 / 2713
+[ OK  ] tests.changelog                  v0.5.0: 559 / 2713
 
 == Validacion 4: arbol de "Estructura" del README vs src/ ==
-[INFO ] tree.readme_block                40 archivos PHP listados en el arbol
-[ OK  ] tree.coverage                    los 40 archivos reales coinciden con el arbol
+[INFO ] tree.readme_block                57 archivos PHP listados en el arbol
+[ OK  ] tree.coverage                    los 57 archivos reales coinciden con el arbol
 
 == Validacion 5: tipos de comprobante (GUIA vs TiposComprobante.php) ==
 [ OK  ] tipos.coverage                   los 8 codigos coinciden

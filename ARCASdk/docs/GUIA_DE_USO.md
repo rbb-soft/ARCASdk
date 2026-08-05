@@ -7,7 +7,7 @@
 ## Acerca de este manual
 
 **Versión del manual:** 3.0.
-**Versión del SDK documentada:** `v0.5.0` (compatible hacia atrás desde `v0.2.0`).
+**Versión del SDK documentada:** `v0.5.1`.
 **Fecha de redacción:** 5 de agosto de 2026.
 **Audiencia:** developers PHP con experiencia básica en PHP 8.1+, Composer, MySQL y nociones elementales de SOAP. El manual no requiere conocimiento previo de la facturación electrónica argentina ni del SDK; ambos se introducen desde cero.
 
@@ -358,7 +358,7 @@ Hay tres campos que afectan importes más allá del IVA discriminado:
 
 ## 3. La respuesta del SDK
 
-Cuando una emisión termina bien, el SDK devuelve un **DTO inmutable** (`Rbbsoft\ArcaSdk\Wsfe\ComprobanteEmitido`). El orquestador `ArcaSdk` ya no devuelve un array asociativo como en v0.2.x: a partir de v0.3.0 la forma canónica es el DTO, con propiedades tipadas y de solo lectura. Para los callers que necesiten la forma historica snake_case, el DTO expone el método `asArray()` (ver sección 3.3).
+Cuando una emisión termina bien, el SDK devuelve un **DTO inmutable** (`Rbbsoft\ArcaSdk\Wsfe\ComprobanteEmitido`). La forma canónica de la respuesta es el DTO, con propiedades tipadas y de solo lectura. Para los callers que necesiten la forma histórica snake_case, el DTO expone el método `asArray()` (ver sección 3.3).
 
 ### 3.1. Tabla de propiedades del DTO
 
@@ -395,9 +395,9 @@ Cuando una emisión termina bien, el SDK devuelve un **DTO inmutable** (`Rbbsoft
 
 **Importante:** el DTO **siempre** incluye `$montoNeto` y `$montoIva`, incluso en C y M. La diferencia es semántica: en C y M son el total sin discriminar.
 
-### 3.3. Compat con callers pre-v0.3.0 (array snake_case)
+### 3.3. Compat con la forma array snake_case histórica
 
-Si tu código existente espera el array asociativo de v0.2.x (`$resp['cae']`, `$resp['cbte_nro']`, etc.), podés obtenerlo con el método `asArray()`:
+Si tu código existente espera el array asociativo snake_case, podés obtenerlo con el método `asArray()`:
 
 ```php
 $resp = $arca->emitirFactura($externalId, $data);
@@ -407,7 +407,7 @@ echo $array['cae_fch_vto'];      // '20260814'
 echo $array['cbte_nro'];         // 4
 ```
 
-Las claves devueltas por `asArray()` son las mismas que el array de v0.2.x (`cae`, `cae_fch_vto`, `cbte_nro`, `cbte_fch`, `monto_total`, `monto_neto`, `monto_iva`, `cbte_tipo`, `punto_venta`, `mon_id`, `mon_cotiz`, `cuit`, `receptor_documento_tipo`, `receptor_documento_nro`, `receptor_condicion_iva`, `items`, `observaciones`, `origen`, `external_id`, `resultado`, `cbtes_asoc`). Esta forma se ofrece como compat temporal y no se garantiza estable a futuro: el nuevo código debería usar las propiedades del DTO directamente.
+Las claves del array devuelto por `asArray()` son: `cae`, `cae_fch_vto`, `cbte_nro`, `cbte_fch`, `monto_total`, `monto_neto`, `monto_iva`, `cbte_tipo`, `punto_venta`, `mon_id`, `mon_cotiz`, `cuit`, `receptor_documento_tipo`, `receptor_documento_nro`, `receptor_condicion_iva`, `items`, `observaciones`, `origen`, `external_id`, `resultado`, `cbtes_asoc`. Esta forma se ofrece como compat temporal y no se garantiza estable a futuro: el nuevo código debería usar las propiedades del DTO directamente.
 
 ### 3.4. Respuesta idempotente
 
@@ -436,7 +436,7 @@ $gen = new ComprobantePdfGenerator('C:/mis/pdfs');
 $pdfPath = $gen->generar($resp);   // acepta DTO o array
 ```
 
-El `ComprobantePdfGenerator` también acepta un array mergeado con la forma historica v0.2.x, lo que permite regenerar PDFs de comprobantes viejos a partir de un snapshot de la DB:
+El `ComprobantePdfGenerator` también acepta un array con la forma snake_case histórica, lo que permite regenerar PDFs de comprobantes a partir de un snapshot de la DB:
 
 ```php
 $snapshot = [
@@ -785,7 +785,7 @@ Tener el certificado instalado en ARCA **no alcanza**. Cada servicio web al que 
 5. Confirmar. Esperar **5-10 minutos** a que propague.
 6. Reintentar el flujo del SDK que estaba fallando.
 
-**WSNs que este SDK necesita tener autorizados en la Admin de Relaciones** (mínimo indispensable para usar todas las features de v0.3.x):
+**WSNs que este SDK necesita tener autorizados en la Admin de Relaciones** (mínimo indispensable para usar todas las features del SDK):
 
 | Feature del SDK | WSN a autorizar | Síntoma si falta |
 |---|---|---|
@@ -795,7 +795,7 @@ Tener el certificado instalado en ARCA **no alcanza**. Cada servicio web al que 
 
 **WSNs adicionales que el SDK no usa hoy** (no hay que autorizar, pero los menciono porque vas a verlos en ARCA):
 
-- `wsmtxca` — Régimen de información de operaciones internacionales (no se usa desde v0.3.x).
+- `wsmtxca` — Régimen de información de operaciones internacionales (no utilizado por el SDK).
 - `ws_sr_constancia_inscripcion` — **nombre histórico del padrón A13**. ARCA lo rebautizó a `ws_sr_padron_a13`; si lo tenés autorizado pero no el nuevo, el SDK NO funciona. Autorizá directamente el nuevo.
 - `wsaa` — servicio de autenticación. Se usa internamente para pedir CUALQUIER TA; ARCA lo da por autorizado por default al pedir cualquier WSN específico, no requiere acción separada.
 
@@ -855,7 +855,7 @@ El SDK devuelve los datos del padrón y nada más. **Tres responsabilidades qued
 
 1. **Persistencia del `Emisor`.** Decidí dónde guardar el DTO (DB propia, JSON, cache de aplicación).
 2. **Datos manuales no presentes en el padrón.** El padrón no expone logo, email, teléfono, web, ni nombre de fantasía. Esos los completás vos.
-3. **Generación del PDF.** Desde v0.3.0 el SDK incluye `Rbbsoft\ArcaSdk\Pdf\ComprobantePdfGenerator`, que arma un PDF A4 con el QR oficial de ARCA a partir del `ComprobanteEmitido` (o de un array mergeado con la forma histórica v0.2.x). La forma recomendada es invocar `$arca->generarPdf($resp)` desde el orquestador; los detalles de uso están en la sección 3.5. Si se prefiere otro motor de render (`dompdf`, `tcpdf`, etc.) puede seguir consumiéndose el DTO; el SDK no obliga a usar el generador provisto.
+3. **Generación del PDF.** El SDK incluye `Rbbsoft\ArcaSdk\Pdf\ComprobantePdfGenerator`, que arma un PDF A4 con el QR oficial de ARCA a partir del `ComprobanteEmitido` (o de un array con la forma snake_case histórica). La forma recomendada es invocar `$arca->generarPdf($resp)` desde el orquestador; los detalles de uso están en la sección 3.5. Si se prefiere otro motor de render (`dompdf`, `tcpdf`, etc.) puede seguir consumiéndose el DTO; el SDK no obliga a usar el generador provisto.
 
 ---
 
@@ -1223,7 +1223,7 @@ La **Resolución General ARCA 5616/2024** estableció un nuevo estándar obligat
 | `EX` | IVA Sujeto Exento | 4 |
 | `NC` | Sujeto No Categorizado | 7 |
 
-> **Nota.** Los IDs internos de ARCA **cambiaron** respecto del esquema anterior a la RG 5616. La constante `IVA_RECEPTOR_ID` del SDK ya está actualizada al catálogo vigente. Si se observa el error 10246 en producción tras una migración de SDK, verificar que la versión desplegada incluya el fix de v0.2.3.
+> **Nota.** Los IDs internos de ARCA **cambiaron** respecto del esquema anterior a la RG 5616. La constante `IVA_RECEPTOR_ID` del SDK está actualizada al catálogo vigente. Si se observa el error 10246 en producción tras una migración de SDK, verificar que la versión desplegada del SDK corresponda a la documentada en este manual.
 
 Para la lista completa de IDs y la mecánica del campo, consultar el método `FEParamGetCondicionIvaReceptor` del WSFEv1 y el manual oficial `WSFEv1_Manual_Desarrollador_v4.5_ARCA.pdf` (apéndice H).
 

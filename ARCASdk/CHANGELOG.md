@@ -5,6 +5,24 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es/1.0.0/).
 
 ---
 
+## [v0.5.1] — 2026-08-05
+
+**Limpieza documental.** Se eliminan de la documentación pública las menciones a versiones anteriores del SDK. Se conservan únicamente las referencias a la versión actual (`v0.5.0`) y, cuando son relevantes para el lector de hoy, las referencias a normativa de ARCA (RG 5616) o a la forma histórica del DTO.
+
+### Cambios
+
+- **`README.md` (raíz)**: corrección del campo `Estado`, que figuraba como `v0.4.1`; pasa a `v0.5.0`.
+- **`ARCASdk/README.md`**: eliminación de las seis anotaciones `(nuevo v0.3.0)` del árbol de la sección `## Estructura`. En un release público inicial las marcas de novedad histórica no aportan información.
+- **`docs/GUIA_DE_USO.md`**: reescritura de nueve referencias a versiones anteriores (compat con la forma snake_case `v0.2.x`, `(no se usa desde v0.3.x)`, `fix de v0.2.3`, etc.) para que la documentación no quede anclada a números de versión previos. La compat con la forma array histórica se describe sin referenciar una versión puntual.
+- **`docs/MAINTENANCE.md`**: actualización del ejemplo de salida de `audit-docs.php` al estado actual del release (`v0.5.0`, manual 3.0, 57 archivos), ajuste de los números de línea referenciados del `README.md` y eliminación del sub-versionado del audit script (`v0.1`/`v0.2`).
+- **`tools/audit-docs.php`**: actualización del docblock del file header y de la cadena de banner al estado actual; bump del `@since` a `0.5.0`.
+
+### Auditoría
+
+`tools/audit-docs.php` corre en verde para las validaciones 1 (versión declarada en `README.md` vs `CHANGELOG.md`) y 2 (versión del manual vs versión del SDK). Las validaciones 3, 4 y 5 mantienen warnings/fails preexistentes no relacionados con este parche (los warning/FAIL de la validación 5 se deben a la falta de documentación de los tipos 2/7/12 en el `GUIA_DE_USO.md`; los de las validaciones 3 y 4 se explican en issues separados).
+
+---
+
 ## [v0.5.0] — 2026-08-05
 
 **Initial public release.** Esta es la primera versión del SDK publicada abiertamente. El proyecto se libera con un único commit en el repositorio público; la historia de desarrollo previa queda consolidada en este release.
