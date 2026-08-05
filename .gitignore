@@ -1,1 +1,30 @@
-Certificados
+/vendor/
+/.env
+/.env.local
+/.env.*.local
+/.phpunit.result.cache
+/.phpunit.cache/
+/composer.lock
+/.idea/
+/.vscode/
+*.log
+*.pem
+*.key
+*.csr
+/COMMIT_MSG.txt
+/comprobantes/
+/coverage/
+/build/
+/.php_cs.cache
+/tools/_debug_audit*.php
+
+# Certificados reales (no se commitean)
+Certificados/
+
+
+
+
+# Mensajes de commit temporales (no se commitean)
+COMMIT_MSG_PUBLIC.txt
+COMMIT_MSG.txt
+
